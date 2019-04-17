@@ -40,9 +40,9 @@ class ScrapeResults:
             print(repr(e))
 
     def savefilename(self):
-        with open(LOCATION + "filenames.csv", "w", newline='') as csvfile:
-            writer = csv.writer(csvfile, delimiter=",")
-            writer.writerow(['{0}-{1}.json'.format(self.competition, self.test)])
-
-if __name__ == "__main__":
-    ScrapeResults('http://floridamao.org/Downloadable/Results/Combined02012019/Geometry_Indv.html')
+        try:
+            with open(DATA + "filenames.csv", "w", newline='') as csvfile:
+                writer = csv.writer(csvfile, delimiter=",")
+                writer.writerow(['{0}-{1}.json'.format(self.competition, self.test)])
+        except Exception as e:
+            print(repr(e))
