@@ -21,11 +21,18 @@ class ScrapeResults:
 
     def writedata(self):
         try:
-            self.jsondata = self.data.to_json(DATA + "{0}-{1}.json".format(self.competition, self.test), orient="records")
+            self.jsondata = self.data.to_json(DATA + "temp.json".format(self.competition, self.test), orient="records")
             # print("Made file {0}-{1}.json".format(self.competition, self.test))
-            self.savefilename()
+            self.cleanupdata()
         except Exception as e:
             print("An Error Occured: Failed to write data to disk")
+
+    def cleanupdata(self):
+        with open(DATA + "temp.json") as g, open(DATA + "{0}-{1}.json".format(self.competition, self.test)) as fout:
+            for l in g:
+                json.dump(eval(l), fout)
+        os.remove(DATA + "temp.json")
+        self.savefilename()
 
     def savefilename(self):
         with open(LOCATION + "filenames.csv", "w", newline='') as csvfile:
