@@ -4,29 +4,33 @@ class ScrapeResults:
     def __init__(self, website):
         self.website = website
         self.name()
-        self.getdata()
-        self.writedata()
 
     def name(self):
         spliturl = self.website.split('/')
         self.competition = spliturl[5]
         test = spliturl[6].split('.')
         self.test = test[0]
+        self.getdata()
 
     def getdata(self):
         try:
             self.data, = pd.read_html(self.website, header=0)
+            self.writedata()
         except Exception as e:
             print("An Error Occured: No connection/No URL")
 
     def writedata(self):
         try:
-            self.jsondata = self.data.to_json(r'data', orient="records")
-            #with open("{0}-{1}.json".format(self.competition, self.test), "w") as data_file:
-            #    json.dump(self.jsondata, data_file, indent=2)
-            print("Made file {0}-{1}.json".format(self.competition, self.test))
+            self.jsondata = self.data.to_json(DATA + "{0}-{1}.json".format(self.competition, self.test), orient="records")
+            # print("Made file {0}-{1}.json".format(self.competition, self.test))
+            self.savefilename()
         except Exception as e:
             print("An Error Occured: Failed to write data to disk")
+
+    def savefilename(self):
+        with open(LOCATION + "filenames.csv", "w", newline='') as csvfile:
+            writer = csv.writer(csvfile, delimiter=",")
+            writer.writerow(['{0}-{1}.json'.format(self.competition, self.test)])
 
 if __name__ == "__main__":
     ScrapeResults('http://floridamao.org/Downloadable/Results/Combined02012019/Geometry_Indv.html')
