@@ -7,3 +7,4 @@ from Scrape import *
 from bs4 import BeautifulSoup
 import requests
 from GetUrls import *
+from pathlib import Path

@@ -21,19 +21,19 @@ class ScrapeResults:
 
     def writedata(self):
         try:
-            self.jsondata = self.data.to_json(DATA + "{0}-{1}.json".format(self.competition, self.test), orient="records")
+            self.jsondata = self.data.to_json(DATA / "{0}-{1}.json".format(self.competition, self.test), orient="records")
             # print("Made file {0}-{1}.json".format(self.competition, self.test))
             self.cleanupdata()
         except Exception as e:
             print(repr(e))
 
     def cleanupdata(self):
-        with open(DATA + "{0}-{1}.json".format(self.competition, self.test)) as f:
+        with open(DATA / "{0}-{1}.json".format(self.competition, self.test)) as f:
             json_string = f.read()
         try:
             parsed_json = json.loads(json_string)
             formatted_json = json.dumps(parsed_json, indent = 4, sort_keys=True)
-            with open(DATA + "{0}-{1}.json".format(self.competition, self.test), "w") as f:
+            with open(DATA / "{0}-{1}.json".format(self.competition, self.test), "w") as f:
                 f.write(formatted_json)
             self.savefilename()
         except Exception as e:
@@ -41,8 +41,9 @@ class ScrapeResults:
 
     def savefilename(self):
         try:
-            with open(DATA + "filenames.csv", "w", newline='') as csvfile:
+            row = ['{0}-{1}.json'.format(self.competition, self.test)]
+            with open(DATA / "filenames.csv", "a", newline='') as csvfile:
                 writer = csv.writer(csvfile, delimiter=",")
-                writer.writerow(['{0}-{1}.json'.format(self.competition, self.test)])
+                writer.writerow(row)
         except Exception as e:
             print(repr(e))
