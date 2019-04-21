@@ -1,3 +1,6 @@
 *.pyc
 .vscode
 /__pycache__/*
+/data/*
+!/data/filenames.csv
+!/data/urls.csv

@@ -17,7 +17,8 @@ class ScrapeResults:
             self.data, = pd.read_html(self.website, header=0)
             self.writedata()
         except Exception as e:
-            print(repr(e))
+            # print(repr(e))
+            pass
 
     def writedata(self):
         try:
