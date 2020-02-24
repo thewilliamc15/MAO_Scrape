@@ -2,19 +2,22 @@ from all_imports import *
 
 
 class Urls:
-    def __init__(self):
+    def __init__(self, yearstodownload=4):
         try:
             os.remove(DATA / 'urls.csv')
         except Exception as e:
             pass
+        self.forbidden = ['Sweeps', "Detail"]
         #with open(DATA / 'urls.csv', 'w') as file:
         #    writer = csv.writer(file)
         #    writer.writerow(empty)
         self.mainsite = requests.get("http://floridamao.org/PublicPages/Results.aspx")
-        self.yearurl = "http://floridamao.org/PublicPages/Results.aspx?=__EVENTTARGET=ctl00%24ContentPlaceHolder1%24ddlYear&__EVENTARGUMENT=&__LASTFOCUS=&__VIEWSTATE=%2FwEPDwULLTIwNDIzNzUwODEPZBYCZg9kFgQCAQ9kFgICAQ8WAh4EaHJlZgUnLi4vU3R5bGUvZmxvcmlkYU1BT1N0eWxlLmNzcz83eDM2eDE3eVBNZAIDD2QWBGYPDxYCHgRUZXh0BQdSZXN1bHRzZGQCAg9kFgICAQ8QZA8WDWYCAQICAgMCBAIFAgYCBwIIAgkCCgILAgwWDRAFBDIwMTkFBDIwMTlnEAUEMjAxOAUEMjAxOGcQBQQyMDE3BQQyMDE3ZxAFBDIwMTYFBDIwMTZnEAUEMjAxNQUEMjAxNWcQBQQyMDE0BQQyMDE0ZxAFBDIwMTMFBDIwMTNnEAUEMjAxMgUEMjAxMmcQBQQyMDExBQQyMDExZxAFBDIwMTAFBDIwMTBnEAUEMjAwOQUEMjAwOWcQBQQyMDA4BQQyMDA4ZxAFBDIwMDcFBDIwMDdnZGRkjOPKhOTsvwezWeNqxqzZuGecOx4THT%2FUqxDZAsCFNMk%3D&__VIEWSTATEGENERATOR=B9E74498&__EVENTVALIDATION=%2FwEdAA%2Fe0LFHuFLSAewtKoes5KjtxqHRL00rt8adneBfK88dfT%2BcOQi%2F0dvZM%2FyXsG9QPIiOrm0r1Wn1HnGVbwDbzEtDcFpyEho21yFh9mi857vYO%2FVF7N17OGdfvDavsvJ3rC9JUv8tdp9R5JYA9kjV4p8Tz2DMGDHfiWBe%2FIv2qQVSnxj1HlWjlZi7vwPK5DR%2BS0u%2FSpoYG89BqY5x3gn2oXgIXvbY9qQ%2FTK2O8IEyJfiSmd2Rkk0fmBEOTNydQGMCOFgJz%2Fp83ath%2BQHOOQw7szKNUNaGGm7fiiWRQalAAQme9ZNliHd3hQy%2B3bUlzeHxKjjmFyhU55jQ%2FzxegTQUWmyz0C2KMoyt%2BEsaYOv8Xw6u3g%3D%3D&ctl00%24ContentPlaceHolder1%24ddlYear={0}"
+        self.yearurl = "http://floridamao.org/PublicPages/Results.aspx?=__EVENTTARGET=ctl00%24ContentPlaceHolder1%24ddlYear&__EVENTARGUMENT=&__LASTFOCUS=&__VIEWSTATE=%2FwEPDwULLTIwNDIzNzUwODEPZBYCZg9kFgQCAQ9kFgICAQ8WAh4EaHJlZgUoLi4vU3R5bGUvZmxvcmlkYU1BT1N0eWxlLmNzcz8xMngzOHgwMXlQTWQCAw9kFgRmDw8WAh4EVGV4dAUHUmVzdWx0c2RkAgIPZBYCAgEPEGQPFg5mAgECAgIDAgQCBQIGAgcCCAIJAgoCCwIMAg0WDhAFBDIwMjAFBDIwMjBnEAUEMjAxOQUEMjAxOWcQBQQyMDE4BQQyMDE4ZxAFBDIwMTcFBDIwMTdnEAUEMjAxNgUEMjAxNmcQBQQyMDE1BQQyMDE1ZxAFBDIwMTQFBDIwMTRnEAUEMjAxMwUEMjAxM2cQBQQyMDEyBQQyMDEyZxAFBDIwMTEFBDIwMTFnEAUEMjAxMAUEMjAxMGcQBQQyMDA5BQQyMDA5ZxAFBDIwMDgFBDIwMDhnEAUEMjAwNwUEMjAwN2dkZGS5xOv0cjQWI4T72TohLkc3Nm0jEedYO6OzFRiZGDcMRQ%3D%3D&__VIEWSTATEGENERATOR=B9E74498&__EVENTVALIDATION=%2FwEdABAj9K8qPoBfx9EtPXO%2BG8qdxqHRL00rt8adneBfK88dfVLio2QbUdKvSvCABTB%2BSyQ%2FnDkIv9Hb2TP8l7BvUDyIjq5tK9Vp9R5xlW8A28xLQ3BachIaNtchYfZovOe72Dv1RezdezhnX7w2r7Lyd6wvSVL%2FLXafUeSWAPZI1eKfE89gzBgx34lgXvyL9qkFUp8Y9R5Vo5WYu78DyuQ0fktLv0qaGBvPQamOcd4J9qF4CF722PakP0ytjvCBMiX4kpndkZJNH5gRDkzcnUBjAjhYCc%2F6fN2rYfkBzjkMO7MyjVDWhhpu34olkUGpQAEJnvWTZYh3d4UMvt21Jc3h8So4Yf7WrkzBNBzBu82dnBZpDEj0iz%2FD7dWVSFlGHBeGrHQ%3D&ctl00%24ContentPlaceHolder1%24ddlYear={0}"
         self.years = list()
         self.x = 0
         self.getyears()
+        self.years = self.years[:yearstodownload]
+        print(self.years)
         for year in self.years:
             self.scrape(year)
 

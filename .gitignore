@@ -2,5 +2,11 @@
 .vscode
 /__pycache__/*
 /data/*
+/old/*
+/node_modules/*
 !/data/filenames.csv
 !/data/urls.csv
+/Chrome/*
+/static/*
+webapp.py
+/templates/*

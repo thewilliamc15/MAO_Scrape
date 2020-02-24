@@ -7,9 +7,10 @@ class ScrapeResults:
 
     def name(self):
         spliturl = self.website.split('/')
-        self.competition = spliturl[5]
+        self.competition = spliturl[5].replace("%20", "_")
         test = spliturl[6].split('.')
-        self.test = test[0]
+        self.test = test[0].replace("%20", "_")
+        print("{0}-{1}.json".format(self.competition, self.test))
         self.getdata()
 
     def getdata(self):
@@ -22,7 +23,7 @@ class ScrapeResults:
 
     def writedata(self):
         try:
-            self.jsondata = self.data.to_json(DATA / "{0}-{1}.json".format(self.competition, self.test), orient="records")
+            self.jsondata = self.data.to_json(DATA / "{0}-{1}.json".format(self.competition, self.test), orient="table")
             # print("Made file {0}-{1}.json".format(self.competition, self.test))
             self.cleanupdata()
         except Exception as e:
