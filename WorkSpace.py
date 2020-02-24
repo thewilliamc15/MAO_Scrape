@@ -98,6 +98,30 @@ def lowestTScore():
                         highname = filename
     print("From {}, with a score of {}, {}. T-Score: {}  ({})".format(school, score, name, tscore, highname))
 
+def Range():
+    biggestRange = 0
+    lowestRange = 1000
+    bigname = ""
+    lilname = ""
+    for filename in list:
+        if "Bowl" not in filename and "Team" not in filename and "PreAlg" not in filename and "Prealg" not in filename:
+            with open(DATA / filename, 'rb') as input_file:
+                data = json.load(input_file)
+                lastindex = len(data["data"])
+                for competitor in data["data"]:
+                    if competitor["index"] == 0:
+                        high = competitor["Score"]
+                    if competitor["index"] == lastindex - 1:
+                        low = competitor["Score"]
+                range = high - low
+                if range > biggestRange:
+                    biggestRange = range
+                    bigname = filename
+                if range < lowestRange:
+                    lowestRange = range
+                    lilname = filename
+    return "{} with a range of {}\n{} with a range of {}".format(bigname, biggestRange, lilname, lowestRange)
+
 def StatsPerTest(filename):
     try:
         with open(DATA / filename, 'rb') as input_file:
@@ -208,4 +232,5 @@ for person in trash:
 print("Percent of people that get 120's: {}% ({}/{})".format((len(findByScore(120)) / totalCompetitorCount()) * 100, len(findByScore(120)), totalCompetitorCount()))
 highestTScore()
 lowestTScore()
+print(Range())
 # grabdata()
