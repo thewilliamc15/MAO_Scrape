@@ -6,7 +6,9 @@
 
 The creation of this project was to better analyze and absorb all the data that is publicly available from past Florida MuAlphaTheta competitions. MuAlphaTheta is the organization in charge of running the math competitions in the state of Florida.
 ## Installation
+This is the most help I am giving at this point because it isn't completed
 ```python
+python -m pip install -r requirements.txt
 
 ```
 ## Author
